@@ -19,7 +19,8 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 javascript_tests = [
-  'testStepper.js'
+  'testStepper.js',
+  'testZoomAnimation.js'
 ]
 
 gjs = find_program('gjs', required: false)

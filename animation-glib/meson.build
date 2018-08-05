@@ -48,6 +48,7 @@ subdir('query')
 subdir('stepper')
 subdir('transform')
 subdir('wobbly')
+subdir('zoom')
 
 animation_glib_introspectable_sources += animation_glib_toplevel_introspectable_sources
 animation_glib_private_sources += animation_glib_toplevel_private_sources
