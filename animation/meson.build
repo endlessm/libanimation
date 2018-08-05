@@ -26,11 +26,13 @@ animation_headers_subdir = 'animation'
 
 subdir('query')
 subdir('stepper')
+subdir('transform')
 subdir('wobbly')
 
 animation_toplevel_headers = files([
   'geometry.h',
-  'geometry_traits.h'
+  'geometry_traits.h',
+  'transform_calculation.h'
 ])
 
 animation_headers += animation_toplevel_headers
