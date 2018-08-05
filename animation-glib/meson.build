@@ -41,6 +41,7 @@ animation_glib_headers = files([])
 animation_glib_headers_subdir = 'animation-glib'
 
 subdir('stepper')
+subdir('transform')
 subdir('wobbly')
 
 animation_glib_introspectable_sources += files(animation_glib_toplevel_introspectable_sources)
