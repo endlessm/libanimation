@@ -20,8 +20,14 @@
 
 api_version = '0'
 
-animation_glib_toplevel_headers = files(['vector.h'])
-animation_glib_toplevel_introspectable_sources = files(['vector.cpp'])
+animation_glib_toplevel_headers = files([
+  'box.h',
+  'vector.h'
+])
+animation_glib_toplevel_introspectable_sources = files([
+  'box.cpp',
+  'vector.cpp'
+])
 animation_glib_toplevel_private_headers = files([])
 animation_glib_toplevel_private_sources = files([])
 
