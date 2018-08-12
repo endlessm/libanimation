@@ -44,6 +44,7 @@ animation_glib_private_sources = files([])
 animation_glib_headers = files([])
 animation_glib_headers_subdir = 'animation-glib'
 
+subdir('bounce')
 subdir('query')
 subdir('stepper')
 subdir('transform')

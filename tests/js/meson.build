@@ -19,6 +19,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 javascript_tests = [
+  'testBounceAnimation.js',
   'testStepper.js',
   'testZoomAnimation.js'
 ]
