@@ -30,9 +30,12 @@ animation_glib_toplevel_introspectable_sources = files([
   'vector4d.cpp'
 ])
 animation_glib_toplevel_private_headers = files([
+  'constructor-helpers.h',
   'vector4d-internal.h'
 ])
-animation_glib_toplevel_private_sources = files([])
+animation_glib_toplevel_private_sources = files([
+  'constructor-helpers.cpp'
+])
 
 animation_glib_introspectable_sources = files([])
 animation_glib_private_headers = files([])
@@ -44,8 +47,10 @@ subdir('stepper')
 subdir('transform')
 subdir('wobbly')
 
-animation_glib_introspectable_sources += files(animation_glib_toplevel_introspectable_sources)
-animation_glib_headers += files(animation_glib_toplevel_headers)
+animation_glib_introspectable_sources += animation_glib_toplevel_introspectable_sources
+animation_glib_private_sources += animation_glib_toplevel_private_sources
+animation_glib_headers += animation_glib_toplevel_headers
+animation_glib_private_headers += animation_glib_toplevel_private_headers
 
 install_headers(animation_glib_toplevel_headers, subdir: animation_glib_headers_subdir)
 
