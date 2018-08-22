@@ -21,6 +21,7 @@
 javascript_tests = [
   'testBounceAnimation.js',
   'testGlideAnimation.js',
+  'testMagicLampAnimation.js',
   'testStepper.js',
   'testZoomAnimation.js'
 ]
