@@ -25,6 +25,7 @@ animation_headers = files([])
 animation_headers_subdir = 'animation'
 
 subdir('bounce')
+subdir('glide')
 subdir('query')
 subdir('stepper')
 subdir('transform')

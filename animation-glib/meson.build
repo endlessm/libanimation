@@ -45,6 +45,7 @@ animation_glib_headers = files([])
 animation_glib_headers_subdir = 'animation-glib'
 
 subdir('bounce')
+subdir('glide')
 subdir('query')
 subdir('stepper')
 subdir('transform')
