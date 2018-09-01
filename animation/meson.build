@@ -34,6 +34,7 @@ animation_toplevel_headers = files([
   'geometry.h',
   'geometry_traits.h',
   'math.h',
+  'property.h',
   'transform_calculation.h'
 ])
 
