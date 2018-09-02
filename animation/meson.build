@@ -28,6 +28,15 @@ subdir('query')
 subdir('stepper')
 subdir('wobbly')
 
+animation_toplevel_headers = files([
+  'geometry.h',
+  'geometry_traits.h'
+])
+
+animation_headers += animation_toplevel_headers
+
+install_headers(animation_toplevel_headers, subdir: animation_headers_subdir)
+
 animation_lib = shared_library(
   'animation',
   animation_sources,
@@ -39,12 +48,6 @@ animation_lib = shared_library(
 animation_dep = declare_dependency(
   link_with: animation_lib,
   include_directories: [ animation_inc ],
-)
-
-install_headers(
-  'geometry.h',
-  'geometry_traits.h',
-  subdir: animation_headers_subdir
 )
 
 pkg = import('pkgconfig')
