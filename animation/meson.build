@@ -39,6 +39,12 @@ animation_dep = declare_dependency(
   include_directories: [ animation_inc ],
 )
 
+install_headers(
+  'geometry.h',
+  'geometry_traits.h',
+  subdir: animation_headers_subdir
+)
+
 pkg = import('pkgconfig')
 pkg.generate(
   description: 'Library to provide 2D surface animations',
