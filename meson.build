@@ -18,7 +18,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-project('libanimation', 'cpp',
+project('libanimation', ['c', 'cpp'],
         version: '0.0.0',
         default_options : ['cpp_std=c++17'],
         license: 'LGPL2+',
