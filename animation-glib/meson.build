@@ -57,7 +57,7 @@ animation_glib_dep = declare_dependency(
 introspection_sources = [ animation_glib_introspectable_sources, animation_glib_headers ]
 
 gnome = import('gnome')
-gnome.generate_gir(
+animation_glib_gir = gnome.generate_gir(
   animation_glib_lib,
   extra_args: ['--warn-all', '--warn-error'],
   identifier_prefix: 'Animation',
@@ -68,7 +68,7 @@ gnome.generate_gir(
   nsversion: api_version,
   sources: introspection_sources,
   symbol_prefix: 'animation'
-)
+)[0]
 
 pkg = import('pkgconfig')
 pkg.generate(
