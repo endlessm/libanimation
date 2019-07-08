@@ -22,6 +22,10 @@
  */
 #pragma once
 
+#include <array>
+#include <type_traits>
+#include <utility>
+
 #include <animation/geometry_traits.h>
 
 namespace animation
