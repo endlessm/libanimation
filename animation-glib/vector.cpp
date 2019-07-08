@@ -17,8 +17,7 @@
  * License along with eos-companion-app-service.  If not, see
  * <http://www.gnu.org/licenses/>.
  *
- * GObject Interface for "wobbly" textures, vector
- * type implementation.
+ * GObject boxed type vector implementation.
  */
 
 #include <animation-glib/vector.h>
