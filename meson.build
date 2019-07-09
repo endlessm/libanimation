@@ -22,7 +22,7 @@ project('libanimation', ['c', 'cpp'],
         version: '0.0.0',
         default_options : ['cpp_std=c++17'],
         license: 'LGPL2+',
-        meson_version: '>= 0.40.0')
+        meson_version: '>= 0.42.0')
 
 gtest_dep = dependency('gtest', required: false)
 gtest_main_dep = dependency('gtest', main: true, required: false)
