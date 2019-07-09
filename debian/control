@@ -87,3 +87,14 @@ Depends: ${gir:Depends},
          libanimation-clutter0 (= ${binary:Version})
 Description: 2D Surfaces Animations library, Clutter Implementation (GObject Introspection) files
  2D Surfaces Animations library, Clutter Implementation (GObject Introspection) files
+
+Package: gnome-shell-extension-animation
+Section: libs
+Architecture: any
+Depends: ${gir:Depends},
+         ${misc:Depends},
+         ${shlibs:Depends},
+         libanimation-clutter0 (= ${binary:Version}),
+         gir1.2-animation-clutter-0,
+         gnome-shell
+Description: GNOME-Shell extension using 2D Surface Animation Library to provide window animations.
