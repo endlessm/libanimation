@@ -1,0 +1,6 @@
+{
+    "name": "Animations",
+    "description": "Use libanimation to provide nice window animations",
+    "uuid": "animation@endlessm.com",
+    "shell-version": ["3.32.2"]
+}

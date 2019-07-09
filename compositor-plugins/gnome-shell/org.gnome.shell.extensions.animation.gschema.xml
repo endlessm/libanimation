@@ -1,0 +1,277 @@
+<schemalist>
+  <enum id="org.gnome.shell.extensions.animation.OpenEffect">
+    <value nick="default" value="0"/>
+    <value nick="zoom" value="1"/>
+    <value nick="bounce" value="2"/>
+    <value nick="glide" value="3"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.animation.CloseEffect">
+    <value nick="default" value="0"/>
+    <value nick="zoom" value="1"/>
+    <value nick="bounce" value="2"/>
+    <value nick="glide" value="3"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.animation.MinimizeEffect">
+    <value nick="default" value="0"/>
+    <value nick="zoom" value="1"/>
+    <value nick="magiclamp" value="2"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.animation.UnminimizeEffect">
+    <value nick="default" value="0"/>
+    <value nick="zoom" value="1"/>
+    <value nick="magiclamp" value="2"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.animation.MoveEffect">
+    <value nick="default" value="0"/>
+    <value nick="wobbly" value="1"/>
+  </enum>
+  <schema id="org.gnome.shell.extensions.animation" path="/org/gnome/shell/extensions/animation/"
+          gettext-domain="@GETTEXT_PACKAGE@">
+    <key name="open-effect" enum="org.gnome.shell.extensions.animation.OpenEffect">
+      <default>'default'</default>
+      <summary>
+        Open Window Effect
+      </summary>
+      <description>
+        Animation to use when opening a window.
+      </description>
+    </key>
+    <key name="close-effect" enum="org.gnome.shell.extensions.animation.CloseEffect">
+      <default>'default'</default>
+      <summary>
+        Close Window Effect
+      </summary>
+      <description>
+        Animation to use when closing a window.
+      </description>
+    </key>
+    <key name="minimize-effect" enum="org.gnome.shell.extensions.animation.MinimizeEffect">
+      <default>'default'</default>
+      <summary>
+        Minimize Window Effect
+      </summary>
+      <description>
+        Animation to use when minimize a window.
+      </description>
+    </key>
+    <key name="unminimize-effect" enum="org.gnome.shell.extensions.animation.UnminimizeEffect">
+      <default>'default'</default>
+      <summary>
+        Unminimize Window Effect
+      </summary>
+      <description>
+        Animation to use when unminimize a window.
+      </description>
+    </key>
+    <key name="move-effect" enum="org.gnome.shell.extensions.animation.MoveEffect">
+      <default>'default'</default>
+      <summary>
+        Move Window Effect
+      </summary>
+      <description>
+        Animation to use when moving a window.
+      </description>
+    </key>
+    <key name="glide-length" type="i">
+      <range min="0" max="5000"/>
+      <default>200</default>
+      <summary>
+        Glide animation length
+      </summary>
+      <description>
+        How long the glide animation lasts
+      </description>
+    </key>
+    <key name="glide-initial-distance" type="d">
+      <range min="-1.0" max="1.0"/>
+      <default>-0.3</default>
+      <summary>
+        Initial distance
+      </summary>
+      <description>
+        Initial distance away from the camera
+      </description>
+    </key>
+    <key name="glide-x-rotation-angle-degrees" type="d">
+      <range min="-360.0" max="360.0"/>
+      <default>-20.0</default>
+      <summary>
+        X Rotation Angle
+      </summary>
+      <description>
+        Angle to rotate around the x-axis
+      </description>
+    </key>
+    <key name="glide-y-rotation-angle-degrees" type="d">
+      <range min="-360.0" max="360.0"/>
+      <default>0.0</default>
+      <summary>
+        Y Rotation Angle
+      </summary>
+      <description>
+        Angle to rotate around the y-axis
+      </description>
+    </key>
+    <key name="glide-x-axis-location-unit" type="d">
+      <range min="0.0" max="1.0"/>
+      <default>0.2</default>
+      <summary>
+        X Axis Location
+      </summary>
+      <description>
+        Unit co-ordinates for X axis location
+      </description>
+    </key>
+    <key name="magiclamp-length" type="i">
+      <range min="0" max="5000"/>
+      <default>200</default>
+      <summary>
+        Magic Lamp animation length
+      </summary>
+      <description>
+        How long the Magic Lamp animation lasts
+      </description>
+    </key>
+    <key name="magiclamp-bend-factor" type="d">
+      <range min="1.0" max="20.0"/>
+      <default>10.0</default>
+      <summary>
+        Bend Factor
+      </summary>
+      <description>
+        How much to bend the window during the animation
+      </description>
+    </key>
+    <key name="magiclamp-offset-factor" type="d">
+      <range min="0.1" max="1.0"/>
+      <default>0.5</default>
+      <summary>
+        Offset Factor
+      </summary>
+      <description>
+        How much the waves curve during the animation
+      </description>
+    </key>
+    <key name="magiclamp-stretch-factor" type="d">
+      <range min="0.2" max="1.0"/>
+      <default>0.45</default>
+      <summary>
+        Stretch Factor
+      </summary>
+      <description>
+        How much the window stretches during the animation
+      </description>
+    </key>
+    <key name="magiclamp-deform-speed-factor" type="d">
+      <range min="0.2" max="3.0"/>
+      <default>2.3</default>
+      <summary>
+        Deform Speed Factor
+      </summary>
+      <description>
+        How quickly to deform the window during the animation
+      </description>
+    </key>
+    <key name="glide-y-axis-location-unit" type="d">
+      <range min="0.0" max="1.0"/>
+      <default>0.5</default>
+      <summary>
+        Y Axis Location
+      </summary>
+      <description>
+        Unit co-ordinates for Y axis location
+      </description>
+    </key>
+    <key name="zoom-length" type="i">
+      <range min="0" max="5000"/>
+      <default>200</default>
+      <summary>
+        Zoom animation length
+      </summary>
+      <description>
+        How long the zoom animation lasts
+      </description>
+    </key>
+    <key name="bounce-length" type="i">
+      <range min="0" max="5000"/>
+      <default>200</default>
+      <summary>
+        Bounce animation length
+      </summary>
+      <description>
+        How long the bounce animation lasts
+      </description>
+    </key>
+    <key name="bounce-initial-scale" type="d">
+      <range min="0.1" max="1.0"/>
+      <default>0.7</default>
+      <summary>
+        Initial scale
+      </summary>
+      <description>
+        Initial scale of the surface being bounced
+      </description>
+    </key>
+    <key name="bounce-maximum-scale" type="d">
+      <range min="1.0" max="2.0"/>
+      <default>1.3</default>
+      <summary>
+        Maximum scale
+      </summary>
+      <description>
+        Maximum scale of the surface being bounced
+      </description>
+    </key>
+    <key name="bounce-n-bounce" type="i">
+      <range min="1" max="10"/>
+      <default>2</default>
+      <summary>
+        Number of Bounces
+      </summary>
+      <description>
+        How many times the window oscillates from its original position
+      </description>
+    </key>
+    <key name="wobbly-spring-k" type="d">
+      <range min="2.0" max="10.0"/>
+      <default>8.0</default>
+      <summary>
+        Wobbly effect Spring Constant
+      </summary>
+      <description>
+        Springiness of wobbly effect
+      </description>
+    </key>
+    <key name="wobbly-spring-friction" type="d">
+      <range min="2.0" max="10.0"/>
+      <default>3.0</default>
+      <summary>
+        Wobbly effect Friction
+      </summary>
+      <description>
+        Friction of wobbly effect
+      </description>
+    </key>
+    <key name="wobbly-slowdown-factor" type="d">
+      <range min="1.0" max="5.0"/>
+      <default>1.0</default>
+      <summary>
+        Wobbly effect slowdown factor
+      </summary>
+      <description>
+        Slowdown factor of wobbly effect (1.0 being normal speed)
+      </description>
+    </key>
+    <key name="wobbly-object-movement-range" type="d">
+      <range min="10.0" max="500.0"/>
+      <default>100.0</default>
+      <summary>
+        Wobbly effect object movement range
+      </summary>
+      <description>
+        How much objects are allowed to move in the mesh. A higher range
+        allows for a more pronounced effect.
+      </description>
+    </key>
+  </schema>
+</schemalist>
