@@ -41,5 +41,6 @@ tests_inc = include_directories('tests')
 
 subdir('animation')
 subdir('animation-glib')
+subdir('animation-clutter')
 subdir('matchers')
 subdir('tests')
