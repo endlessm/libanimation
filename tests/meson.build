@@ -18,6 +18,8 @@
 #
 # Build the libanimation unit tests.
 
+subdir('js')
+
 animation_test_sources = [
   'ostream_point_operator.h',
   'wobbly/anchor_test.cpp',
