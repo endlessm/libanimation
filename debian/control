@@ -10,6 +10,7 @@ Build-Depends: debhelper (>= 8.0.0),
                libgirepository1.0-dev,
                libglib2.0-dev,
                libgtest-dev,
+               libmutter-4-dev,
                meson
 Standards-Version: 3.9.4
 Section: libs
