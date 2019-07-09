@@ -35,6 +35,7 @@ animation_glib_headers = files([])
 animation_glib_headers_subdir = 'animation-glib'
 
 subdir('query')
+subdir('stepper')
 subdir('wobbly')
 
 animation_glib_introspectable_sources += animation_glib_toplevel_introspectable_sources
