@@ -20,8 +20,8 @@
 
 api_version = '0'
 
-animation_sources = []
-animation_headers = []
+animation_sources = files([])
+animation_headers = files([])
 animation_headers_subdir = 'animation'
 
 subdir('query')
