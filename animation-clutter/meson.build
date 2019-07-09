@@ -33,14 +33,16 @@ animation_clutter_toplevel_private_headers = files([
 animation_clutter_toplevel_headers = files([
   'animation-clutter-affine-effect.h',
   'animation-clutter-actor-box-query.h',
-  'animation-clutter-common.h'
+  'animation-clutter-common.h',
+  'animation-clutter-grid-effect.h'
 ])
 
 animation_clutter_toplevel_private_sources = files([])
 animation_clutter_toplevel_introspectable_sources = files([
     'animation-clutter-affine-effect.c',
     'animation-clutter-actor-box-query.c',
-    'animation-clutter-common.c'
+    'animation-clutter-common.c',
+    'animation-clutter-grid-effect.c'
 ])
 
 animation_clutter_introspectable_sources += animation_clutter_toplevel_introspectable_sources
