@@ -1,4 +1,4 @@
-# /matchers/meson.build
+# tests/meson.build
 #
 # Copyright (C) 2017, 2018 Endless Mobile, Inc.
 #
