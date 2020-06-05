@@ -36,7 +36,7 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (AnimationWobblyAnchor, animation_wobbly_anchor, ANIMATION, WOBBLY_ANCHOR, GObject)
 
 void animation_wobbly_anchor_move_by (AnimationWobblyAnchor *anchor,
-                                      AnimationVector        vector);
+                                      AnimationVector       *vector);
 
 void animation_wobbly_anchor_release (AnimationWobblyAnchor *anchor);
 

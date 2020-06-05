@@ -152,24 +152,33 @@ namespace
 
     TEST (WobblyGLibAPI, ConstructModel)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };
+    	
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
+
     }
 
     TEST (WobblyGLibAPI, MoveModelChangesExtremes)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
 
         std::array <AnimationVector, 4> extremes;
 
-        animation_wobbly_model_move_to (model, { 1.0, 1.0 });
+    	AnimationVector pos_to = { 1.0, 1.0 };
+    	
+        animation_wobbly_model_move_to (model, &pos_to);
         animation_wobbly_model_query_extremes (model,
                                                &extremes[0],
                                                &extremes[1],
@@ -196,15 +205,18 @@ namespace
 
     TEST (WobblyGLibAPI, ResizeModelChangesExtremes)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
 
         std::array <AnimationVector, 4> extremes;
 
-        animation_wobbly_model_resize (model, { 200.0, 200.0 });
+    	AnimationVector resize_dimensions = { 200.0, 200.0 };
+        animation_wobbly_model_resize (model, &resize_dimensions);
         animation_wobbly_model_query_extremes (model,
                                                &extremes[0],
                                                &extremes[1],
@@ -231,14 +243,19 @@ namespace
 
     TEST (WobblyGLibAPI, GrabCorrectIndex)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
-        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, { 100.0, 0.0 });
+                                                                            
+    	AnimationVector grab_pos = { 100.0, 0.0 };                                                                            
+        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, &grab_pos);
 
-        animation_wobbly_anchor_move_by (anchor, { 10.0, 10.0 });
+    	AnimationVector delta_pos = { 10.0, 10.0 };                                               
+        animation_wobbly_anchor_move_by (anchor, &delta_pos);
 
         AnimationVector topRightExtreme;
         AnimationVector expectedTopRightExtreme = { 110.0, 0.0 };
@@ -254,15 +271,20 @@ namespace
 
     TEST (WobblyGLibAPI, ModelSettlesAfterMovingAnchor)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
-        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, { 100.0, 0.0 });
+                                                                            
+    	AnimationVector grab_pos = { 100.0, 0.0 };
+        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, &grab_pos);
 
-        /* Move anchor and settle */
-        animation_wobbly_anchor_move_by (anchor, { 10.0, 10.0 });
+        // Move anchor and settle
+    	AnimationVector delta_pos = { 10.0, 10.0 };                                               
+        animation_wobbly_anchor_move_by (anchor, &delta_pos);
         while (animation_wobbly_model_step (model, 1));
 
         std::array <AnimationVector, 4> extremes;
@@ -292,71 +314,96 @@ namespace
 
     TEST (WobblyGLibAPI, DeformedWithGrabbedAnchor)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };    
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
-        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, { 100.0, 0.0 });
+
+    	AnimationVector grab_pos = { 100.0, 0.0 };
+        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, &grab_pos);
         AnimationVector deformed;
         AnimationVector center = { 50.0, 50.0 };
 
-        animation_wobbly_anchor_move_by (anchor, { 10.0, 10.0 });
-        animation_wobbly_model_deform_texcoords (model, { 0.5, 0.5 }, &deformed);
+    	AnimationVector delta_pos = { 10.0, 10.0 };
+        animation_wobbly_anchor_move_by (anchor, &delta_pos);
+
+    	AnimationVector texture_pos = { 0.5, 0.5 };
+        animation_wobbly_model_deform_texcoords (model, &texture_pos, &deformed);
 
         EXPECT_THAT (deformed, Not (Eq (center)));
     }
 
     TEST (WobblyGLibAPI, DeformedWithInsertAnchor)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };        
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
-        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_insert_anchor (model, { 70.0, 0.0 });
+    	AnimationVector insert_pos = { 70.0, 0.0 };
+        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_insert_anchor (model, &insert_pos);
         AnimationVector deformed;
         AnimationVector center = { 50.0, 50.0 };
 
-        animation_wobbly_anchor_move_by (anchor, { 10.0, 10.0 });
+    	AnimationVector delta_pos = { 10.0, 10.0 };
+        animation_wobbly_anchor_move_by (anchor, &delta_pos);
         animation_wobbly_model_step (model, 1);
-        animation_wobbly_model_deform_texcoords (model, { 0.5, 0.5 }, &deformed);
+
+    	AnimationVector texture_pos = { 0.5, 0.5 };
+        animation_wobbly_model_deform_texcoords (model, &texture_pos, &deformed);
 
         EXPECT_THAT (deformed, Not (Eq (center)));
     }
 
     TEST (WobblyGLibAPI, NoDeformationNoAnchorMove)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };        
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
-        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, { 100.0, 0.0 });
+                                                                            
+		AnimationVector grab_pos = { 100.0, 0.0 };
+        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, &grab_pos);
         AnimationVector deformed;
         AnimationVector center = { 50.0, 50.0 };
 
-        animation_wobbly_model_deform_texcoords (model, { 0.5, 0.5 }, &deformed);
+    	AnimationVector texture_pos = { 0.5, 0.5 };
+        animation_wobbly_model_deform_texcoords (model, &texture_pos, &deformed);
 
         EXPECT_THAT (deformed, Eq (center));
     }
 
     TEST (WobblyGLibAPI, ReleaseAnchorOnModel)
     {
-        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new ({ 0.0, 0.0 },
-                                                                            { 100.0, 100.0 },
+    	AnimationVector pos = { 0.0, 0.0 };
+    	AnimationVector size = { 100.0, 100.0 };        
+        g_autoptr(AnimationWobblyModel) model = animation_wobbly_model_new (&pos,
+                                                                            &size,
                                                                             8.0,
                                                                             5.0,
                                                                             500.0);
-        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, { 100.0, 0.0 });
 
-        /* Temporarily grab another anchor and move the first one */
+    	AnimationVector grab_pos = { 100.0, 0.0 };
+        g_autoptr(AnimationWobblyAnchor) anchor = animation_wobbly_model_grab_anchor (model, &grab_pos);
+
+        // Temporarily grab another anchor and move the first one
         {
-            g_autoptr(AnimationWobblyAnchor) otherAnchor = animation_wobbly_model_grab_anchor (model, { 0.0, 0.0 });
-            animation_wobbly_anchor_move_by (anchor, { 10.0, 10.0 });
+    	AnimationVector grab_pos2 = { 0.0, 0.0 };        
+            g_autoptr(AnimationWobblyAnchor) otherAnchor = animation_wobbly_model_grab_anchor (model, &grab_pos2);
+
+	    	AnimationVector delta_pos = { 10.0, 10.0 };            
+            animation_wobbly_anchor_move_by (anchor, &delta_pos);
         }
 
-        /* Anchor is now released. Settle model */
+        // Anchor is now released. Settle model
         while (animation_wobbly_model_step (model, 1));
 
         std::array <AnimationVector, 4> extremes;

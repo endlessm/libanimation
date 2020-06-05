@@ -81,12 +81,12 @@ namespace agd = animation::geometry::dimension;
  */
 AnimationWobblyAnchor *
 animation_wobbly_model_grab_anchor (AnimationWobblyModel *model,
-                                    AnimationVector       position)
+                                    AnimationVector      *position)
 {
   AnimationWobblyModelPrivate *priv =
     reinterpret_cast <AnimationWobblyModelPrivate *> (animation_wobbly_model_get_instance_private (model));
-  wobbly::Anchor anchor (priv->model->GrabAnchor (animation::Point (position.x,
-                                                                    position.y)));
+  wobbly::Anchor anchor (priv->model->GrabAnchor (animation::Point (position->x,
+                                                                    position->y)));
 
   return animation_wobbly_anchor_new_for_native_anchor_rvalue (std::move (anchor));
 }
@@ -111,12 +111,12 @@ animation_wobbly_model_grab_anchor (AnimationWobblyModel *model,
  */
 AnimationWobblyAnchor *
 animation_wobbly_model_insert_anchor (AnimationWobblyModel *model,
-                                      AnimationVector       position)
+                                      AnimationVector      *position)
 {
   AnimationWobblyModelPrivate *priv =
     reinterpret_cast <AnimationWobblyModelPrivate *> (animation_wobbly_model_get_instance_private (model));
-  wobbly::Anchor anchor (priv->model->InsertAnchor (animation::Point (position.x,
-                                                                      position.y)));
+  wobbly::Anchor anchor (priv->model->InsertAnchor (animation::Point (position->x,
+                                                                      position->y)));
 
   return animation_wobbly_anchor_new_for_native_anchor_rvalue (std::move (anchor));
 }
@@ -155,7 +155,7 @@ animation_wobbly_model_step (AnimationWobblyModel *model,
  */
 void
 animation_wobbly_model_deform_texcoords (AnimationWobblyModel *model,
-                                         AnimationVector       uv,
+                                         AnimationVector      *uv,
                                          AnimationVector      *deformed)
 {
   AnimationWobblyModelPrivate *priv =
@@ -163,7 +163,7 @@ animation_wobbly_model_deform_texcoords (AnimationWobblyModel *model,
 
   g_return_if_fail (deformed != NULL);
 
-  animation::Point deformed_point (priv->model->DeformTexcoords (animation::Point (uv.x, uv.y)));
+  animation::Point deformed_point (priv->model->DeformTexcoords (animation::Point (uv->x, uv->y)));
   *deformed = {
     animation::geometry::dimension::get <0> (deformed_point),
     animation::geometry::dimension::get <1> (deformed_point)
@@ -217,15 +217,15 @@ animation_wobbly_model_query_extremes (AnimationWobblyModel *model,
  */
 void
 animation_wobbly_model_move_to (AnimationWobblyModel *model,
-                                AnimationVector       position)
+                                AnimationVector      *position)
 {
   AnimationWobblyModelPrivate *priv =
     reinterpret_cast <AnimationWobblyModelPrivate *> (animation_wobbly_model_get_instance_private (model));
 
-  priv->prop_position = position;
+  priv->prop_position = {position->x, position->y};
 
   if (priv->model != nullptr)
-    priv->model->MoveModelTo (animation::Point (position.x, position.y));
+    priv->model->MoveModelTo (animation::Point (position->x, position->y));
 }
 
 /**
@@ -237,16 +237,16 @@ animation_wobbly_model_move_to (AnimationWobblyModel *model,
  */
 void
 animation_wobbly_model_move_by (AnimationWobblyModel *model,
-                                AnimationVector       delta)
+                                AnimationVector      *delta)
 {
   AnimationWobblyModelPrivate *priv =
     reinterpret_cast <AnimationWobblyModelPrivate *> (animation_wobbly_model_get_instance_private (model));
 
-  priv->prop_position.x += delta.x;
-  priv->prop_position.y += delta.y;
+  priv->prop_position.x += delta->x;
+  priv->prop_position.y += delta->y;
 
   if (priv->model != nullptr)
-    priv->model->MoveModelBy (animation::Point (delta.x, delta.y));
+    priv->model->MoveModelBy (animation::Point (delta->x, delta->y));
 }
 
 /**
@@ -258,15 +258,15 @@ animation_wobbly_model_move_by (AnimationWobblyModel *model,
  */
 void
 animation_wobbly_model_resize (AnimationWobblyModel *model,
-                               AnimationVector       size)
+                               AnimationVector      *size)
 {
   AnimationWobblyModelPrivate *priv =
     reinterpret_cast <AnimationWobblyModelPrivate *> (animation_wobbly_model_get_instance_private (model));
 
-  priv->prop_size = size;
+  priv->prop_size = {size->x, size->y};  
 
   if (priv->model != nullptr)
-    priv->model->ResizeModel (size.x, size.y);
+    priv->model->ResizeModel (size->x, size->y);
 }
 
 void
@@ -319,10 +319,10 @@ animation_wobbly_model_set_property (GObject      *object,
       animation_wobbly_model_set_maximum_range (model, g_value_get_double (value));
       break;
     case PROP_POSITION:
-      animation_wobbly_model_move_to (model, *(reinterpret_cast <AnimationVector *> (g_value_get_boxed (value))));
+      animation_wobbly_model_move_to (model, (reinterpret_cast <AnimationVector *> (g_value_get_boxed (value))));
       break;
     case PROP_SIZE:
-      animation_wobbly_model_resize (model, *(reinterpret_cast <AnimationVector *> (g_value_get_boxed (value))));
+      animation_wobbly_model_resize (model, (reinterpret_cast <AnimationVector *> (g_value_get_boxed (value))));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -445,8 +445,8 @@ animation_wobbly_model_class_init (AnimationWobblyModelClass *klass)
 }
 
 AnimationWobblyModel *
-animation_wobbly_model_new (AnimationVector position,
-                            AnimationVector size,
+animation_wobbly_model_new (AnimationVector *position,
+                            AnimationVector *size,
                             double       spring_constant,
                             double       friction,
                             double       maximum_range)
@@ -455,7 +455,7 @@ animation_wobbly_model_new (AnimationVector position,
                                                "spring-k", spring_constant,
                                                "friction", friction,
                                                "movement-range", maximum_range,
-                                               "position", &position,
-                                               "size", &size,
+                                               "position", position,
+                                               "size", size,
                                                nullptr));
 }

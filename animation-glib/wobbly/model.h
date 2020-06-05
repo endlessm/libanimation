@@ -31,23 +31,23 @@ G_BEGIN_DECLS
 #define ANIMATION_WOBBLY_TYPE_MODEL animation_wobbly_model_get_type ()
 G_DECLARE_FINAL_TYPE (AnimationWobblyModel, animation_wobbly_model, ANIMATION, WOBBLY_MODEL, GObject)
 
-AnimationWobblyModel * animation_wobbly_model_new (AnimationVector  position,
-                                                   AnimationVector  size,
+AnimationWobblyModel * animation_wobbly_model_new (AnimationVector  *position,
+                                                   AnimationVector  *size,
                                                    double        spring_constant,
                                                    double        friction,
                                                    double        maximum_range);
 
 AnimationWobblyAnchor * animation_wobbly_model_grab_anchor (AnimationWobblyModel *model,
-                                                            AnimationVector position);
+                                                            AnimationVector *position);
 
 AnimationWobblyAnchor * animation_wobbly_model_insert_anchor (AnimationWobblyModel *model,
-                                                              AnimationVector position);
+                                                              AnimationVector *position);
 
 gboolean animation_wobbly_model_step (AnimationWobblyModel  *model,
                                       unsigned int  ms);
 
 void animation_wobbly_model_deform_texcoords (AnimationWobblyModel  *model,
-                                              AnimationVector  uv,
+                                              AnimationVector  *uv,
                                               AnimationVector *deformed);
 
 void animation_wobbly_model_query_extremes (AnimationWobblyModel  *model,
@@ -57,12 +57,12 @@ void animation_wobbly_model_query_extremes (AnimationWobblyModel  *model,
                                             AnimationVector *bottom_right);
 
 void animation_wobbly_model_move_to (AnimationWobblyModel *model,
-                                     AnimationVector position);
+                                     AnimationVector *position);
 void animation_wobbly_model_move_by (AnimationWobblyModel *model,
-                                     AnimationVector delta);
+                                     AnimationVector *delta);
 
 void animation_wobbly_model_resize (AnimationWobblyModel *model,
-                                    AnimationVector size);
+                                    AnimationVector *size);
 
 void animation_wobbly_model_set_spring_k (AnimationWobblyModel *model, double spring_constant);
 
