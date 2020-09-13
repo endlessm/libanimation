@@ -263,7 +263,7 @@ animation_wobbly_model_resize (AnimationWobblyModel *model,
   AnimationWobblyModelPrivate *priv =
     reinterpret_cast <AnimationWobblyModelPrivate *> (animation_wobbly_model_get_instance_private (model));
 
-  priv->prop_size = {size->x, size->y};  
+  priv->prop_size = {size->x, size->y};
 
   if (priv->model != nullptr)
     priv->model->ResizeModel (size->x, size->y);
