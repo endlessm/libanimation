@@ -19,7 +19,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 project('libanimation', 'cpp',
-        version: '0.0.0',
+        version: '1.0.0',
         default_options : ['cpp_std=c++17'],
         license: 'LGPL2+',
         meson_version: '>= 0.40.0')

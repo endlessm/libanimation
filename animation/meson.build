@@ -18,7 +18,7 @@
 #
 # Build the libanimation library.
 
-api_version = '0'
+api_version = '1'
 
 animation_sources = []
 animation_headers = []

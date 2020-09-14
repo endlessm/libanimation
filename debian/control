@@ -18,45 +18,45 @@ Vcs-Git: git://github.com/endless/libanimation.git
 Package: libanimation-dev
 Section: libdevel
 Architecture: any
-Depends: libanimation0 (= ${binary:Version}),
+Depends: libanimation1 (= ${binary:Version}),
 Description: 2D Surfaces Animations (C++ API) headers
  2D Surfaces Animations (C++ API) headers
 Replaces: libwobbly-dev (<= 0.3.2)
 
-Package: libanimation0
+Package: libanimation1
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Description: 2D Surfaces Animations library (C++ API)
  2D Surfaces Animations library
-Replaces: libwobbly0 (<= 0.3.2)
+Replaces: libwobbly1 (<= 0.3.2)
 
-Package: libanimation-glib0
+Package: libanimation-glib1
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends},
          ${misc:Depends},
-         libanimation0 (= ${binary:Version})
+         libanimation1 (= ${binary:Version})
 Description: 2D Surfaces Animations library (GLib API)
  2D Surfaces Animations library
-Replaces: libwobbly-glib0 (<= 0.3.2)
+Replaces: libwobbly-glib1 (<= 0.3.2)
 
 Package: libanimation-glib-dev
 Section: libs
 Architecture: any
-Depends: libanimation-glib0 (= ${binary:Version}),
+Depends: libanimation-glib1 (= ${binary:Version}),
 Description: 2D Surfaces Animations (GLib API) headers
  2D Surfaces Animations (GLib API) headers
 Replaces: libwobbly-glib-dev (<= 0.3.2)
 
-Package: gir1.2-animation-glib-0
+Package: gir1.2-animation-glib-1
 Section: non-free/libs
 Architecture: any
 Depends: ${gir:Depends},
          ${misc:Depends},
          ${shlibs:Depends},
-         libanimation-glib0 (= ${binary:Version})
+         libanimation-glib1 (= ${binary:Version})
 Description: 2D Surfaces Animations library (GObject Introspection) files
  2D Surfaces Animations library (GObject Introspection) files
-Replaces: gir1.2-libwobbly-glib0 (<= 0.3.2)
+Replaces: gir1.2-libwobbly-glib1 (<= 0.3.2)
