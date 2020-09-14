@@ -51,13 +51,13 @@ G_DEFINE_TYPE_WITH_PRIVATE (AnimationWobblyAnchor,
  */
 void
 animation_wobbly_anchor_move_by (AnimationWobblyAnchor *anchor,
-                                 AnimationVector        vector)
+                                 AnimationVector       *vector)
 {
   AnimationWobblyAnchorPrivate *priv =
     reinterpret_cast <AnimationWobblyAnchorPrivate *> (animation_wobbly_anchor_get_instance_private (anchor));
 
   if (priv->anchor != nullptr)
-    priv->anchor->MoveBy (animation::Point (vector.x, vector.y));
+    priv->anchor->MoveBy (animation::Point (vector->x, vector->y));
 }
 
 
