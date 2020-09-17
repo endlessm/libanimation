@@ -21,7 +21,6 @@ Architecture: any
 Depends: libanimation1 (= ${binary:Version}),
 Description: 2D Surfaces Animations (C++ API) headers
  2D Surfaces Animations (C++ API) headers
-Replaces: libwobbly-dev (<= 0.3.2)
 
 Package: libanimation1
 Section: libs
@@ -30,7 +29,6 @@ Depends: ${shlibs:Depends},
          ${misc:Depends}
 Description: 2D Surfaces Animations library (C++ API)
  2D Surfaces Animations library
-Replaces: libwobbly1 (<= 0.3.2)
 
 Package: libanimation-glib1
 Section: libs
@@ -40,7 +38,6 @@ Depends: ${shlibs:Depends},
          libanimation1 (= ${binary:Version})
 Description: 2D Surfaces Animations library (GLib API)
  2D Surfaces Animations library
-Replaces: libwobbly-glib1 (<= 0.3.2)
 
 Package: libanimation-glib-dev
 Section: libs
@@ -48,7 +45,6 @@ Architecture: any
 Depends: libanimation-glib1 (= ${binary:Version}),
 Description: 2D Surfaces Animations (GLib API) headers
  2D Surfaces Animations (GLib API) headers
-Replaces: libwobbly-glib-dev (<= 0.3.2)
 
 Package: gir1.2-animation-glib-1
 Section: non-free/libs
@@ -59,4 +55,3 @@ Depends: ${gir:Depends},
          libanimation-glib1 (= ${binary:Version})
 Description: 2D Surfaces Animations library (GObject Introspection) files
  2D Surfaces Animations library (GObject Introspection) files
-Replaces: gir1.2-libwobbly-glib1 (<= 0.3.2)
