@@ -1,3 +1,3 @@
 usr/include/animation/*
 usr/lib/*/libanimation.so
-usr/lib/*/pkgconfig/libanimation-0.pc
+usr/lib/*/pkgconfig/libanimation-1.pc

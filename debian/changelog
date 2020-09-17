@@ -1,3 +1,10 @@
+libanimation (1.0.0) eos; urgency=medium
+
+  * Introduce pointers in order to allow gjs object mapping
+  * Break the ABI so bump the soname
+
+ -- Sam Spilsbury <sam@endlessm.com>  Thu, 09 Aug 2018 02:26:53 +0800
+
 libanimation (0.0.0) eos; urgency=medium
 
   * debian/control
