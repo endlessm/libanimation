@@ -57,8 +57,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (AnimationClutterGridEffect,
                             CLUTTER_TYPE_DEFORM_EFFECT)
 
 static gboolean
-animation_clutter_grid_effect_get_paint_volume (ClutterEffect    *effect,
-                                                ClutterPaintVolume *volume)
+animation_clutter_grid_effect_modify_paint_volume (ClutterEffect    *effect,
+                                                   ClutterPaintVolume *volume)
 {
   ClutterActorMeta *meta = CLUTTER_ACTOR_META (effect);
   ClutterActor *actor = clutter_actor_meta_get_actor (meta);
@@ -66,9 +66,9 @@ animation_clutter_grid_effect_get_paint_volume (ClutterEffect    *effect,
   AnimationClutterGridEffectPrivate *priv =
     animation_clutter_grid_effect_get_instance_private (grid_effect);
 
-  /* We assume that the parent's get_paint_volume method always returns
+  /* We assume that the parent's modify_paint_volume method always returns
    * TRUE here. */
-  CLUTTER_EFFECT_CLASS (animation_clutter_grid_effect_parent_class)->get_paint_volume (effect, volume);
+  CLUTTER_EFFECT_CLASS (animation_clutter_grid_effect_parent_class)->modify_paint_volume (effect, volume);
 
   if (priv->grid_animation && clutter_actor_meta_get_enabled (meta))
     {
@@ -311,7 +311,7 @@ animation_clutter_grid_effect_class_init (AnimationClutterGridEffectClass *klass
   object_class->dispose = animation_clutter_grid_effect_dispose;
   object_class->finalize = animation_clutter_grid_effect_finalize;
   meta_class->set_actor = animation_clutter_grid_effect_set_actor;
-  effect_class->get_paint_volume = animation_clutter_grid_effect_get_paint_volume;
+  effect_class->modify_paint_volume = animation_clutter_grid_effect_modify_paint_volume;
   deform_class->deform_vertex = animation_clutter_grid_effect_deform_vertex;
 
   object_properties[PROP_GRID_ANIMATION] =

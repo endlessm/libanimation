@@ -56,8 +56,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (AnimationClutterAffineEffect,
                             CLUTTER_TYPE_EFFECT)
 
 static gboolean
-animation_clutter_affine_effect_get_paint_volume (ClutterEffect      *effect,
-                                                  ClutterPaintVolume *volume)
+animation_clutter_affine_effect_modify_paint_volume (ClutterEffect      *effect,
+                                                     ClutterPaintVolume *volume)
 {
   ClutterActorMeta *meta = CLUTTER_ACTOR_META (effect);
   ClutterActor *actor = clutter_actor_meta_get_actor (meta);
@@ -67,7 +67,7 @@ animation_clutter_affine_effect_get_paint_volume (ClutterEffect      *effect,
 
   /* We assume that the parent's get_paint_volume method always returns
    * TRUE here. */
-  CLUTTER_EFFECT_CLASS (animation_clutter_affine_effect_parent_class)->get_paint_volume (effect, volume);
+  CLUTTER_EFFECT_CLASS (animation_clutter_affine_effect_parent_class)->modify_paint_volume (effect, volume);
 
   if (priv->transform_animation && clutter_actor_meta_get_enabled (meta))
     {
@@ -289,7 +289,7 @@ animation_clutter_affine_effect_class_init (AnimationClutterAffineEffectClass *k
   object_class->set_property = animation_clutter_affine_effect_set_property;
   object_class->dispose = animation_clutter_affine_effect_dispose;
   object_class->finalize = animation_clutter_affine_effect_finalize;
-  effect_class->get_paint_volume = animation_clutter_affine_effect_get_paint_volume;
+  effect_class->modify_paint_volume = animation_clutter_affine_effect_modify_paint_volume;
   effect_class->paint = animation_clutter_affine_effect_paint;
 
   object_properties[PROP_TRANSFORM_ANIMATION] =

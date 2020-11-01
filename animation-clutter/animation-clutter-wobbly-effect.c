@@ -71,8 +71,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (AnimationClutterWobblyEffect,
                             CLUTTER_TYPE_DEFORM_EFFECT)
 
 static gboolean
-animation_clutter_wobbly_effect_get_paint_volume (ClutterEffect    *effect,
-                                                  ClutterPaintVolume *volume)
+animation_clutter_wobbly_effect_modify_paint_volume (ClutterEffect    *effect,
+                                                     ClutterPaintVolume *volume)
 {
   ClutterActorMeta *meta = CLUTTER_ACTOR_META (effect);
   ClutterActor *actor = clutter_actor_meta_get_actor (meta);
@@ -80,9 +80,9 @@ animation_clutter_wobbly_effect_get_paint_volume (ClutterEffect    *effect,
   AnimationClutterWobblyEffectPrivate *priv =
     animation_clutter_wobbly_effect_get_instance_private (wobbly_effect);
 
-  /* We assume that the parent's get_paint_volume method always returns
+  /* We assume that the parent's modify_paint_volume method always returns
    * TRUE here. */
-  CLUTTER_EFFECT_CLASS (animation_clutter_wobbly_effect_parent_class)->get_paint_volume (effect, volume);
+  CLUTTER_EFFECT_CLASS (animation_clutter_wobbly_effect_parent_class)->modify_paint_volume (effect, volume);
 
   if (priv->model && clutter_actor_meta_get_enabled (meta))
     {
@@ -489,7 +489,7 @@ animation_clutter_wobbly_effect_class_init (AnimationClutterWobblyEffectClass *k
   object_class->set_property = animation_clutter_wobbly_effect_set_property;
   object_class->finalize = animation_clutter_wobbly_effect_finalize;
   meta_class->set_actor = animation_clutter_wobbly_effect_set_actor;
-  effect_class->get_paint_volume = animation_clutter_wobbly_effect_get_paint_volume;
+  effect_class->modify_paint_volume = animation_clutter_wobbly_effect_modify_paint_volume;
   deform_class->deform_vertex = animation_clutter_wobbly_effect_deform_vertex;
 
   object_properties[PROP_SPRING_K] =
