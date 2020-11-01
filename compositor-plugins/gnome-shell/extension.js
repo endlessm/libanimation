@@ -28,7 +28,6 @@ const Gio = imports.gi.Gio;
 const GObject = imports.gi.GObject;
 const Meta = imports.gi.Meta;
 const Main = imports.ui.main;
-const Tweener = imports.ui.tweener;
 
 const settings = new Gio.Settings({
     schema: 'org.gnome.shell.extensions.animation'
@@ -615,7 +614,7 @@ function enable() {
 
         // Remove all existing tweens and minimize animations first first
         if (Main.wm._removeEffect(Main.wm._minimizing, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.set_pivot_point(0, 0);
             actor.scale_y = 1;
             actor.scale_x = 1;
@@ -644,7 +643,7 @@ function enable() {
 
         // Remove all existing tweens and minimize animations first first
         if (Main.wm._removeEffect(Main.wm._unminimizing, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.set_pivot_point(0, 0);
             actor.scale_y = 1;
             actor.scale_x = 1;
@@ -680,7 +679,7 @@ function enable() {
 
         // Remove all existing tweens and open animations first
         if (Main.wm._removeEffect(Main.wm._mapping, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.set_pivot_point(0, 0);
             actor.scale_y = 1;
             actor.scale_x = 1;
@@ -709,7 +708,7 @@ function enable() {
 
         // Remove all existing tweens and destroy animations first
         if (Main.wm._removeEffect(Main.wm._destroying, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.set_pivot_point(0, 0);
             actor.scale_y = 1;
             actor.scale_x = 1;
