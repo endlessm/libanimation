@@ -157,6 +157,7 @@ animation_clutter_affine_effect_new_frame (gpointer user_data)
 
 static void
 animation_clutter_affine_effect_paint (ClutterEffect           *effect,
+                                       ClutterPaintContext     *context,
                                        ClutterEffectPaintFlags  flags)
 {
   ClutterActorMeta *meta = CLUTTER_ACTOR_META (effect);
@@ -172,7 +173,7 @@ animation_clutter_affine_effect_paint (ClutterEffect           *effect,
 
   clutter_actor_set_pivot_point (actor, 0, 0);
   clutter_actor_set_transform (actor, &matrix);
-  clutter_actor_continue_paint (actor);
+  clutter_actor_continue_paint (actor, context);
 }
 
 static void
