@@ -695,7 +695,7 @@ function enable() {
             shellwm.completed_map(actor);
             actor.remove_effect(animation);
         });
-    }), 'wm'];
+    }), wm];
     connections['destroy'] = [wm.connect_after('destroy', (shellwm, actor) => {
         let types = [Meta.WindowType.NORMAL,
                      Meta.WindowType.DIALOG,
