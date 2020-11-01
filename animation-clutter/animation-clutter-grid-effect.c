@@ -102,7 +102,7 @@ animation_clutter_grid_effect_modify_paint_volume (ClutterEffect    *effect,
       g_autoptr(ClutterPaintVolume) extremes_volume =
         clutter_paint_volume_copy (volume);
 
-      ClutterVertex const origin = { x1 - actor_x, y1 - actor_y, z1 };
+      graphene_point3d_t const origin = { x1 - actor_x, y1 - actor_y, z1 };
       clutter_paint_volume_set_origin (extremes_volume, &origin);
       clutter_paint_volume_set_width (extremes_volume, MAX (x2 - x1, 1.0));
       clutter_paint_volume_set_height (extremes_volume, MAX (y2 - y1, 1.0));

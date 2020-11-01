@@ -125,7 +125,7 @@ animation_clutter_get_untransformed_paint_box_from_existing_volume (ClutterActor
                                                                     const ClutterPaintVolume *volume,
                                                                     ClutterActorBox          *box)
 {
-  ClutterVertex origin;
+  graphene_point3d_t origin;
 
   /* We don't have access to the stage projection matrix
    * so the best we can do is hope here that the volume is
@@ -243,7 +243,7 @@ animation_clutter_expand_paint_volume_with_extremes (ClutterPaintVolume *volume,
   g_autoptr(ClutterPaintVolume) extremes_volume =
     clutter_paint_volume_copy (volume);
 
-  ClutterVertex const origin = { x1, y1, z1 };
+  graphene_point3d_t const origin = { x1, y1, z1 };
   clutter_paint_volume_set_origin (extremes_volume, &origin);
   clutter_paint_volume_set_width (extremes_volume, x2 - x1);
   clutter_paint_volume_set_height (extremes_volume, y2 - y1);
