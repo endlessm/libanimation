@@ -1296,7 +1296,7 @@ wobbly::BezierMesh::DeformUnitCoordsToMeshSpace (Point const &normalized) const
     double const one_u_pow2 = one_u * one_u;
     double const one_v_pow2 = one_v * one_v;
 
-    long double const uCoefficients[] =
+    double const uCoefficients[] =
     {
         one_u * one_u * one_u,
         three_u * one_u_pow2,
@@ -1304,7 +1304,7 @@ wobbly::BezierMesh::DeformUnitCoordsToMeshSpace (Point const &normalized) const
         u_pow2 * u
     };
 
-    long double const vCoefficients[] =
+    double const vCoefficients[] =
     {
         one_v * one_v * one_v,
         three_v * one_v_pow2,
