@@ -58,8 +58,8 @@ animation_clutter_sources = animation_clutter_introspectable_sources + animation
 
 glib = dependency('glib-2.0')
 gobject = dependency('gobject-2.0')
-clutter = dependency('mutter-clutter-7')
-mutter = dependency('libmutter-7')
+clutter = dependency('mutter-clutter-8')
+mutter = dependency('libmutter-8')
 
 mutter_typelibdir = mutter.get_pkgconfig_variable('typelibdir')
 install_rpath = mutter_typelibdir
@@ -88,7 +88,7 @@ animation_clutter_gir = gnome.generate_gir(
   extra_args: ['--warn-all', '--warn-error'],
   identifier_prefix: 'AnimationClutter',
   include_directories: animation_inc,
-  includes: [animation_glib_gir, 'Clutter-7', 'GLib-2.0', 'GObject-2.0'],
+  includes: [animation_glib_gir, 'Clutter-8', 'GLib-2.0', 'GObject-2.0'],
   install: true,
   namespace: 'AnimationClutter',
   nsversion: api_version,
