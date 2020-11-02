@@ -125,11 +125,11 @@ animation_clutter_affine_effect_new_frame (gpointer user_data)
        * need to do this before the actor effect is disabled, since
        * disabling it may cause the actor to be destroyed
        * and the actor to be detached from the effect. */
-      CoglMatrix matrix;
-      cogl_matrix_init_identity (&matrix);
+      graphene_matrix_t matrix;
+      graphene_matrix_init_identity (&matrix);
       clutter_actor_set_opacity (actor, 255);
       clutter_actor_set_transform (actor,
-                                   (const ClutterMatrix *) &matrix);
+                                   (const graphene_matrix_t *) &matrix);
 
       /* Disable the effect */
       clutter_actor_meta_set_enabled (meta, FALSE);
@@ -167,9 +167,9 @@ animation_clutter_affine_effect_paint (ClutterEffect           *effect,
     animation_clutter_affine_effect_get_instance_private (affine_effect);
 
   /* Apply the transform to the actor */
-  ClutterMatrix matrix;
-  clutter_matrix_init_from_array (&matrix,
-                                  animation_transform_animation_matrix (priv->transform_animation));
+  graphene_matrix_t matrix;
+  graphene_matrix_init_from_float (&matrix,
+                                   animation_transform_animation_matrix (priv->transform_animation));
 
   clutter_actor_set_pivot_point (actor, 0, 0);
   clutter_actor_set_transform (actor, &matrix);
@@ -190,9 +190,9 @@ animation_clutter_affine_effect_ensure_timeline (AnimationClutterAffineEffect *a
       priv->timeout_id = g_timeout_add (frame_length_ms, animation_clutter_affine_effect_new_frame, affine_effect);
 
       /* We need to show the actor and set the initial transform now to prevent flicker */
-      ClutterMatrix matrix;
-      clutter_matrix_init_from_array (&matrix,
-                                      animation_transform_animation_matrix (priv->transform_animation));
+      graphene_matrix_t matrix;
+      graphene_matrix_init_from_float (&matrix,
+                                       animation_transform_animation_matrix (priv->transform_animation));
 
       float scaled_opacity = animation_transform_animation_progress (priv->transform_animation) * 255.0;
       guint8 opacity = (guint8) (scaled_opacity);
