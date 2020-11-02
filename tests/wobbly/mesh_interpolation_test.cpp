@@ -206,6 +206,17 @@ namespace
                                      WithTolerance (10e-5)));
     }
 
+    TEST_F (BezierMesh, Performance)
+    {
+       double x = 0;
+       for (int i = 0; i < 100000000; ++i) {
+         auto const p = mesh.DeformUnitCoordsToMeshSpace (animation::Point(i / 100000000.0, i / 100000.0));
+         x += agd::get <0> (p);
+       }
+
+       EXPECT_EQ (x, 1.0);
+    }
+
     /* Its somewhat difficult to test the non-linear case, considering
      * that the bezier patch evaluation is actually an interpolation
      * between four different parabolic functions. For now just check

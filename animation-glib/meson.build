@@ -20,18 +20,44 @@
 
 api_version = '0'
 
-animation_glib_toplevel_headers = ['vector.h']
-animation_glib_toplevel_introspectable_sources = ['vector.cpp']
+animation_glib_toplevel_headers = files([
+  'box.h',
+  'vector.h',
+  'vector4d.h'
+])
+animation_glib_toplevel_introspectable_sources = files([
+  'box.cpp',
+  'vector.cpp',
+  'vector4d.cpp'
+])
+animation_glib_toplevel_private_headers = files([
+  'constructor-helpers.h',
+  'vector4d-internal.h'
+])
+animation_glib_toplevel_private_sources = files([
+  'constructor-helpers.cpp'
+])
 
-animation_glib_introspectable_sources = []
-animation_glib_private_sources = []
-animation_glib_headers = []
+animation_glib_introspectable_sources = files([])
+animation_glib_private_headers = files([])
+animation_glib_private_sources = files([])
+animation_glib_headers = files([])
 animation_glib_headers_subdir = 'animation-glib'
 
+subdir('bounce')
+subdir('glide')
+subdir('grid')
+subdir('magiclamp')
+subdir('query')
+subdir('stepper')
+subdir('transform')
 subdir('wobbly')
+subdir('zoom')
 
-animation_glib_introspectable_sources += files(animation_glib_toplevel_introspectable_sources)
-animation_glib_headers += files(animation_glib_toplevel_headers)
+animation_glib_introspectable_sources += animation_glib_toplevel_introspectable_sources
+animation_glib_private_sources += animation_glib_toplevel_private_sources
+animation_glib_headers += animation_glib_toplevel_headers
+animation_glib_private_headers += animation_glib_toplevel_private_headers
 
 install_headers(animation_glib_toplevel_headers, subdir: animation_glib_headers_subdir)
 
@@ -57,7 +83,7 @@ animation_glib_dep = declare_dependency(
 introspection_sources = [ animation_glib_introspectable_sources, animation_glib_headers ]
 
 gnome = import('gnome')
-gnome.generate_gir(
+animation_glib_gir = gnome.generate_gir(
   animation_glib_lib,
   extra_args: ['--warn-all', '--warn-error'],
   identifier_prefix: 'Animation',
@@ -68,7 +94,7 @@ gnome.generate_gir(
   nsversion: api_version,
   sources: introspection_sources,
   symbol_prefix: 'animation'
-)
+)[0]
 
 pkg = import('pkgconfig')
 pkg.generate(

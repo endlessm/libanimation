@@ -20,29 +20,44 @@
 
 api_version = '0'
 
-animation_sources = []
-animation_headers = []
+animation_sources = files([])
+animation_headers = files([])
 animation_headers_subdir = 'animation'
 
+subdir('bounce')
+subdir('glide')
+subdir('grid')
+subdir('magiclamp')
+subdir('query')
+subdir('stepper')
+subdir('transform')
 subdir('wobbly')
+subdir('zoom')
+
+animation_toplevel_headers = files([
+  'box_calculation.h',
+  'geometry.h',
+  'geometry_traits.h',
+  'math.h',
+  'property.h',
+  'transform_calculation.h'
+])
+
+animation_headers += animation_toplevel_headers
+
+install_headers(animation_toplevel_headers, subdir: animation_headers_subdir)
 
 animation_lib = shared_library(
   'animation',
   animation_sources,
   soversion: api_version,
   install: true,
-  include_directories: [ animation_inc ]
+  include_directories: [ animation_inc, glm_inc ]
 )
 
 animation_dep = declare_dependency(
   link_with: animation_lib,
   include_directories: [ animation_inc ],
-)
-
-install_headers(
-  'geometry.h',
-  'geometry_traits.h',
-  subdir: animation_headers_subdir
 )
 
 pkg = import('pkgconfig')

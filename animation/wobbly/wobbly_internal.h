@@ -1268,6 +1268,7 @@ wobbly::SpringMesh::CalculateForces (double springConstant) const
            };
 }
 
+// To make this faster
 inline animation::Point
 wobbly::BezierMesh::DeformUnitCoordsToMeshSpace (Point const &normalized) const
 {
@@ -1296,27 +1297,68 @@ wobbly::BezierMesh::DeformUnitCoordsToMeshSpace (Point const &normalized) const
     double const one_u_pow2 = one_u * one_u;
     double const one_v_pow2 = one_v * one_v;
 
-    long double const uCoefficients[] =
+    double const uCoefficients[] =
     {
-        one_u * one_u * one_u,
+        one_u_pow2 * one_u,
         three_u * one_u_pow2,
         3 * u_pow2 * one_u,
         u_pow2 * u
     };
 
-    long double const vCoefficients[] =
+    double const vCoefficients[] =
     {
-        one_v * one_v * one_v,
+        one_v_pow2 * one_v,
         three_v * one_v_pow2,
         3 * v_pow2 * one_v,
         v_pow2 * v
     };
 
-    double x = 0.0;
-    double y = 0.0;
+    double const coefficients[] =
+    {
+        uCoefficients[0] * vCoefficients[0],
+        uCoefficients[0] * vCoefficients[0],
+        uCoefficients[0] * vCoefficients[1],
+        uCoefficients[0] * vCoefficients[1],
+        uCoefficients[0] * vCoefficients[2],
+        uCoefficients[0] * vCoefficients[2],
+        uCoefficients[0] * vCoefficients[3],
+        uCoefficients[0] * vCoefficients[3],
+        uCoefficients[1] * vCoefficients[0],
+        uCoefficients[1] * vCoefficients[0],
+        uCoefficients[1] * vCoefficients[1],
+        uCoefficients[1] * vCoefficients[1],
+        uCoefficients[1] * vCoefficients[2],
+        uCoefficients[1] * vCoefficients[2],
+        uCoefficients[1] * vCoefficients[3],
+        uCoefficients[1] * vCoefficients[3],
+        uCoefficients[2] * vCoefficients[0],
+        uCoefficients[2] * vCoefficients[0],
+        uCoefficients[2] * vCoefficients[1],
+        uCoefficients[2] * vCoefficients[1],
+        uCoefficients[2] * vCoefficients[2],
+        uCoefficients[2] * vCoefficients[2],
+        uCoefficients[2] * vCoefficients[3],
+        uCoefficients[2] * vCoefficients[3],
+        uCoefficients[3] * vCoefficients[0],
+        uCoefficients[3] * vCoefficients[0],
+        uCoefficients[3] * vCoefficients[1],
+        uCoefficients[3] * vCoefficients[1],
+        uCoefficients[3] * vCoefficients[2],
+        uCoefficients[3] * vCoefficients[2],
+        uCoefficients[3] * vCoefficients[3],
+        uCoefficients[3] * vCoefficients[3]
+    };
+
+    double pos[config::Width + config::Height] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+
+    for (size_t i = 0; i < config::Width * config::Height; ++i)
+    {
+        pos[(i * 2) % 8] += coefficients[i * 2] * mPoints[i * 2];
+        pos[(i * 2 + 1) % 8] += coefficients[i * 2 + 1] * mPoints[i * 2 + 1];
+    }
 
     /* This will access the point matrix in a linear fashion for
-     * cache-efficiency */
+     * cache-efficiency */ /*
     for (size_t j = 0; j < config::Height; ++j)
     {
         for (size_t i = 0; i < config::Width; ++i)
@@ -1324,10 +1366,13 @@ wobbly::BezierMesh::DeformUnitCoordsToMeshSpace (Point const &normalized) const
             size_t const xIdx = j * 2 * config::Width + i * 2;
             size_t const yIdx = j * 2 * config::Width + i * 2 + 1;
 
-            x += uCoefficients[j] * vCoefficients[i] * mPoints[xIdx];
-            y += uCoefficients[j] * vCoefficients[i] * mPoints[yIdx];
+            pos[i * 2] += uCoefficients[j] * vCoefficients[i] * mPoints[xIdx];
+            pos[i * 2 + 1] += uCoefficients[j] * vCoefficients[i] * mPoints[yIdx];
         }
-    }
+    }*/
+
+    double x = pos[0] + pos[2] + pos[4] + pos[6];
+    double y = pos[1] + pos[3] + pos[5] + pos[7];
 
     Point absolutePosition (x, y);
     return absolutePosition;

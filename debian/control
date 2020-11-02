@@ -10,6 +10,7 @@ Build-Depends: debhelper (>= 8.0.0),
                libgirepository1.0-dev,
                libglib2.0-dev,
                libgtest-dev,
+               libmutter-4-dev,
                meson
 Standards-Version: 3.9.4
 Section: libs
@@ -51,7 +52,7 @@ Description: 2D Surfaces Animations (GLib API) headers
 Replaces: libwobbly-glib-dev (<= 0.3.2)
 
 Package: gir1.2-animation-glib-0
-Section: non-free/libs
+Section: libs
 Architecture: any
 Depends: ${gir:Depends},
          ${misc:Depends},
@@ -60,3 +61,40 @@ Depends: ${gir:Depends},
 Description: 2D Surfaces Animations library (GObject Introspection) files
  2D Surfaces Animations library (GObject Introspection) files
 Replaces: gir1.2-libwobbly-glib0 (<= 0.3.2)
+
+Package: libanimation-clutter0
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libanimation-glib0 (= ${binary:Version})
+Description: 2D Surfaces Animations library (Clutter Implementation API)
+ 2D Surfaces Animations library
+
+Package: libanimation-clutter-dev
+Section: libs
+Architecture: any
+Depends: libanimation-clutter0 (= ${binary:Version}),
+Description: 2D Surfaces Animations (Clutter Implementation API) headers
+ 2D Surfaces Animations (Clutter Implementation API) headers
+
+Package: gir1.2-animation-clutter-0
+Section: libs
+Architecture: any
+Depends: ${gir:Depends},
+         ${misc:Depends},
+         ${shlibs:Depends},
+         libanimation-clutter0 (= ${binary:Version})
+Description: 2D Surfaces Animations library, Clutter Implementation (GObject Introspection) files
+ 2D Surfaces Animations library, Clutter Implementation (GObject Introspection) files
+
+Package: gnome-shell-extension-animation
+Section: libs
+Architecture: any
+Depends: ${gir:Depends},
+         ${misc:Depends},
+         ${shlibs:Depends},
+         libanimation-clutter0 (= ${binary:Version}),
+         gir1.2-animation-clutter-0,
+         gnome-shell
+Description: GNOME-Shell extension using 2D Surface Animation Library to provide window animations.

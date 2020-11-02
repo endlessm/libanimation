@@ -18,11 +18,11 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-project('libanimation', 'cpp',
+project('libanimation', ['c', 'cpp'],
         version: '0.0.0',
         default_options : ['cpp_std=c++17'],
         license: 'LGPL2+',
-        meson_version: '>= 0.40.0')
+        meson_version: '>= 0.42.0')
 
 gtest_dep = dependency('gtest', required: false)
 gtest_main_dep = dependency('gtest', main: true, required: false)
@@ -36,9 +36,12 @@ if not gtest_dep.found() or not gtest_main_dep.found() or not gmock_dep.found()
 endif
 
 animation_inc = include_directories('.')
+glm_inc = include_directories(join_paths('animation', 'third_party', 'glm'))
 tests_inc = include_directories('tests')
 
 subdir('animation')
 subdir('animation-glib')
+subdir('animation-clutter')
+subdir('compositor-plugins')
 subdir('matchers')
 subdir('tests')

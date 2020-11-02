@@ -1,4 +1,4 @@
-# /matchers/meson.build
+# tests/meson.build
 #
 # Copyright (C) 2017, 2018 Endless Mobile, Inc.
 #
@@ -18,8 +18,14 @@
 #
 # Build the libanimation unit tests.
 
+subdir('js')
+
 animation_test_sources = [
+  'bounce/bounce_animation_test.cpp',
+  'glide/glide_animation_test.cpp',
+  'glm_ostream_operators.h',
   'ostream_point_operator.h',
+  'magiclamp/magiclamp_animation_test.cpp',
   'wobbly/anchor_test.cpp',
   'wobbly/constrainment_test.cpp',
   'wobbly/euler_integration_test.cpp',
@@ -27,7 +33,8 @@ animation_test_sources = [
   'wobbly/mesh_interpolation_test.cpp',
   'wobbly/model_test.cpp',
   'wobbly/point_test.cpp',
-  'wobbly/spring_test.cpp'
+  'wobbly/spring_test.cpp',
+  'zoom/zoom_animation_test.cpp'
 ]
 
 glib = dependency('glib-2.0')
@@ -47,7 +54,7 @@ animation_test_executable = executable(
     animation_dep,
     animation_glib_dep
   ],
-  include_directories: [ tests_inc ]
+  include_directories: [ glm_inc, tests_inc ]
 )
 
 test('animation_test', animation_test_executable)
