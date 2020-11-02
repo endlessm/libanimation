@@ -540,7 +540,8 @@ const WobblyEffect = GObject.registerClass({
 
         this._lastPosition = actor.get_position();
         this._positionChangedId =
-            actor.connect('allocation-changed', (actor) => {
+            actor.metaWindow.connect('position-changed', (window) => {
+                let actor = window.get_compositor_private()
                 let position = actor.get_position();
                 let dx = position[0] - this._lastPosition[0];
                 let dy = position[1] - this._lastPosition[1];
