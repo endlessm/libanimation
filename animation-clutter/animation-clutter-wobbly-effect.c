@@ -86,13 +86,6 @@ animation_clutter_wobbly_effect_modify_paint_volume (ClutterEffect    *effect,
 
   if (priv->model && clutter_actor_meta_get_enabled (meta))
     {
-      ClutterActorBox box;
-      float actor_x, actor_y;
-
-      animation_clutter_get_untransformed_paint_box_from_existing_volume (actor, volume, &box);
-      clutter_actor_get_position (actor, &actor_x, &actor_y);
-
-      AnimationVector offset = { box.x1 - actor_x, box.y1 - actor_y };
       AnimationVector extremes[4];
 
       animation_wobbly_model_query_extremes (priv->model,
@@ -108,10 +101,10 @@ animation_clutter_wobbly_effect_modify_paint_volume (ClutterEffect    *effect,
 
       ClutterActorBox const extremesBox =
         {
-          floor (x1 + offset.x),
-          floor (y1 + offset.y),
-          ceil (x2 + offset.x),
-          ceil (y2 + offset.x)
+          floor (x1),
+          floor (y1),
+          ceil (x2),
+          ceil (y2)
         };
 
       clutter_paint_volume_union_box (volume, &extremesBox);
